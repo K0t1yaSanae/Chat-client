@@ -1,0 +1,5 @@
+Manifest-Version: 1.0
+Main-Class: net.kotiyasanae.chatclient.ChatClient
+Implementation-Title: Chat Client
+Implementation-Version: 1.0.0
+

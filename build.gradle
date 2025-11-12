@@ -1,0 +1,59 @@
+plugins {
+    id 'java'
+    id 'application'
+}
+
+group = 'net.kotiyasanae'
+version = '1.0.0'
+
+repositories {
+    mavenCentral()
+}
+
+dependencies {
+    implementation 'org.eclipse.jetty.websocket:websocket-servlet:9.4.51.v20230217'
+    implementation 'org.eclipse.jetty.websocket:websocket-server:9.4.51.v20230217'
+    implementation 'org.eclipse.jetty:jetty-server:9.4.51.v20230217'
+    implementation 'org.eclipse.jetty:jetty-servlet:9.4.51.v20230217'
+    implementation 'org.eclipse.jetty:jetty-util:9.4.51.v20230217'
+    implementation 'org.eclipse.jetty:jetty-http:9.4.51.v20230217'
+    implementation 'org.eclipse.jetty:jetty-io:9.4.51.v20230217'
+
+    // JSON处理
+    implementation 'com.fasterxml.jackson.core:jackson-core:2.15.2'
+    implementation 'com.fasterxml.jackson.core:jackson-databind:2.15.2'
+
+    // 日志
+    implementation 'org.slf4j:slf4j-simple:2.0.7'
+
+    // JSON处理
+    implementation 'com.fasterxml.jackson.core:jackson-core:2.15.2'
+    implementation 'com.fasterxml.jackson.core:jackson-databind:2.15.2'
+
+    // 日志
+    implementation 'org.slf4j:slf4j-simple:2.0.7'
+}
+
+application {
+    mainClass = 'net.kotiyasanae.chatclient.ChatClient'
+}
+
+tasks.named('run') {
+    standardInput = System.in
+}
+
+jar {
+    manifest {
+        attributes(
+                'Main-Class': 'net.kotiyasanae.chatclient.ChatClient',
+                'Implementation-Title': 'Chat Client',
+                'Implementation-Version': version
+        )
+    }
+
+    from {
+        configurations.runtimeClasspath.collect { it.isDirectory() ? it : zipTree(it) }
+    }
+
+    duplicatesStrategy = DuplicatesStrategy.EXCLUDE
+}
